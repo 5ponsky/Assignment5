@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -41,10 +40,10 @@ class Tube extends Sprite {
     // Only load the sprites if they exist and an instance is created
     try {
       if(tube_up_image == null)
-			   this.tube_up_image = ImageIO.read(new File("tube_up.png"));
+			   Tube.tube_up_image = ImageIO.read(new File("tube_up.png"));
       if(tube_down_image == null)
-			   this.tube_down_image = ImageIO.read(new File("tube_down.png"));
-      this.setImages(this.tube_up_image, this.tube_up_image);
+			   Tube.tube_down_image = ImageIO.read(new File("tube_down.png"));
+      //this.setImages(Tube.tube_up_image, Tube.tube_up_image);
 		} catch(Exception e) {
 			e.printStackTrace(System.err);
 			System.exit(1);
@@ -56,6 +55,20 @@ class Tube extends Sprite {
       y_pos = random.nextInt(TUBEBOUND) + 250;
     else
       y_pos = random.nextInt(TUBEBOUND) - 250;
+  }
+
+  Tube(Sprite s) {
+    this.gravity = s.gravity;
+    this.xVel = s.xVel;
+    this.x_pos = s.x_pos;
+    this.y_pos = s.y_pos;
+    this.tubeUpwards = s.tubeUpwards;
+    this.isKicked = s.isKicked;
+    this.random = s.random;
+  }
+
+  Sprite copy() {
+    return new Tube(this);
   }
 
   public boolean update() {
@@ -83,9 +96,9 @@ class Tube extends Sprite {
 
   public void drawYourself(Graphics g) {
     if(this.tubeUpwards)
-  		g.drawImage(this.tube_up_image, this.x_pos, this.y_pos, null);
+  		g.drawImage(Tube.tube_up_image, this.x_pos, this.y_pos, null);
   	else
-  		g.drawImage(this.tube_down_image, this.x_pos, this.y_pos, null);
+  		g.drawImage(Tube.tube_down_image, this.x_pos, this.y_pos, null);
   }
 
 }

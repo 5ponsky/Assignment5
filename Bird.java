@@ -42,13 +42,29 @@ class Bird extends Sprite {
     // Only load the sprites if they exist and an instance is created
     try {
       if(bird_image_up == null)
-        this.bird_image_up = ImageIO.read(new File("bird1.png"));
+        Bird.bird_image_up = ImageIO.read(new File("bird1.png"));
       if(bird_image_down == null)
-        this.bird_image_down = ImageIO.read(new File("bird2.png"));
+        Bird.bird_image_down = ImageIO.read(new File("bird2.png"));
     } catch(Exception e) {
       e.printStackTrace(System.err);
       System.exit(1);
     }
+  }
+
+  Bird(Sprite s) {
+    this.flapped = s.flapped;
+    this.gravity = s.gravity;
+    this.x_pos = s.x_pos;
+    this.y_pos = s.y_pos;
+    this.flapCounter = s.flapCounter;
+    this.energy = s.energy;
+    this.allowDamageWhenZero = s.allowDamageWhenZero;
+
+
+  }
+
+  Sprite copy() {
+    return new Bird(this);
   }
 
   // Update the bird
@@ -118,9 +134,9 @@ class Bird extends Sprite {
 
   public void drawYourself(Graphics g) {
     if(flapCounter <= 0)
-      g.drawImage(this.bird_image_up, this.x_pos, this.y_pos, null);
+      g.drawImage(Bird.bird_image_up, this.x_pos, this.y_pos, null);
     else
-      g.drawImage(this.bird_image_down, this.x_pos, this.y_pos, null);
+      g.drawImage(Bird.bird_image_down, this.x_pos, this.y_pos, null);
   }
 
 }

@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.LinkedList;
 import java.util.Iterator;
 
@@ -58,6 +57,33 @@ class Model {
       System.exit(0);
     }
 
+  }
+
+  double evaluateAction(int action, int depth) {
+
+    // Evaluate the state
+    if(bird.energy <= 0.0)
+      return 0.0;
+    if(depth >= d)
+      return bird.energy;
+
+    // Simulate the action
+    Model copy = new Model(this); // uses the copy constructor
+    copy.doAction(action);
+    copy.update(); // advance simulated time
+
+    // Recurse
+    if(depth % k != 0)
+       return copy.evaluateAction(ACTION_NOTHING, depth + 1);
+    else {
+       double best = copy.evaluateAction(ACTION_NOTHING, depth + 1);
+       best = Math.max(best,
+         copy.evaluateAction(ACTION_FLAP, depth + 1));
+       best = Math.max(best,
+         copy.evaluateAction(ACTION_CHUCK, depth + 1));
+       return best;
+    }
+  
   }
 
   public void onClick() {

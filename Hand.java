@@ -40,13 +40,26 @@ class Hand extends Sprite {
     // Only load the sprites if they exist and an instance is created
     try {
       if(open_hand == null)
-        this.open_hand = ImageIO.read(new File("hand1.png"));
+        Hand.open_hand = ImageIO.read(new File("hand1.png"));
       if(closed_hand == null)
-        this.closed_hand = ImageIO.read(new File("hand2.png"));
+        Hand.closed_hand = ImageIO.read(new File("hand2.png"));
     } catch(Exception e) {
       e.printStackTrace(System.err);
       System.exit(1);
     }
+  }
+
+  Hand(Sprite s) {
+    this.gotcha = s.gotcha;
+    this.speed = s.speed;
+    this.x_pos = s.x_pos;
+    this.y_pos = s.y_pos;
+
+
+  }
+
+  Sprite clone() {
+    return new Sprite(this);
   }
 
   public boolean update() {
@@ -70,9 +83,9 @@ class Hand extends Sprite {
 
   public void drawYourself(Graphics g) {
     if(gotcha)
-      g.drawImage(this.closed_hand, this.x_pos, this.y_pos, null);
+      g.drawImage(Hand.closed_hand, this.x_pos, this.y_pos, null);
     else
-      g.drawImage(this.open_hand, this.x_pos, this.y_pos, null);
+      g.drawImage(Hand.open_hand, this.x_pos, this.y_pos, null);
   }
 
 }

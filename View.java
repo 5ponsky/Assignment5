@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.util.LinkedList;
 import java.util.Iterator;
 
+@SuppressWarnings("serial")
 class View extends JPanel
 {
 	JButton b1;

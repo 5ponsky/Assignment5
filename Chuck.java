@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Random;
 import javax.imageio.ImageIO;
 
 class Chuck extends Sprite {
@@ -40,13 +39,20 @@ class Chuck extends Sprite {
 
     try {
       if(chuck_image == null)
-        this.chuck_image = ImageIO.read(new File("chuck_norris.png"));
+        Chuck.chuck_image = ImageIO.read(new File("chuck_norris.png"));
     } catch(Exception e) {
       e.printStackTrace(System.err);
       System.exit(1);
     }
   System.out.println("CHUCK ACTIVATED!");
 
+  }
+
+  Chuck(Sprite s) {
+    this.gravity = s.gravity;
+    this.xVel = s.xVel;
+    this.x_pos = s.x_pos;
+    this.y_pos = s.y_pos;
   }
 
   public boolean update() {
@@ -95,7 +101,7 @@ class Chuck extends Sprite {
   }
 
   public void drawYourself(Graphics g) {
-    g.drawImage(this.chuck_image, this.x_pos, this.y_pos, null);
+    g.drawImage(Chuck.chuck_image, this.x_pos, this.y_pos, null);
   }
 
 }

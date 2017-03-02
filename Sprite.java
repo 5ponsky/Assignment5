@@ -2,8 +2,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 abstract class Sprite {
-  public static Image image1, image2;
-  public int x_pos, y_pos;
+  //public static Image image1, image2;
+  int x_pos, y_pos;
 
   // Return true if the object is of type "Tube"
   abstract boolean isTube();
@@ -25,16 +25,21 @@ abstract class Sprite {
   // Short-hand collision Detection
   abstract boolean collided(Sprite a, Sprite b);
 
+  // Return true if already hit by Chuck (needed for Tubes)
   abstract boolean beenHit(double xVel);
 
+  abstract Sprite copy();
+
+/*
   public void setImages(Image im1, Image im2) {
     image1 = im1;
     image2 = im2;
   }
 
   public void setImage(Image im1) {
-    this.image1 = im1;
+    Sprite.image1 = im1;
   }
+*/
 
   public void setPos(int x, int y) {
     x_pos = x;

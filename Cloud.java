@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -36,11 +35,17 @@ class Cloud extends Sprite {
     // Only load the sprites if they exist and an instance is created
     try {
       if(cloud_image == null)
-        this.cloud_image = ImageIO.read(new File("cloud.png"));
+        Cloud.cloud_image = ImageIO.read(new File("cloud.png"));
     } catch(Exception e) {
       e.printStackTrace(System.err);
       System.exit(1);
     }
+  }
+
+  Cloud(Sprite s) {
+    this.x_pos = s.x_pos;
+    this.y_pos = s.y_pos;
+
   }
 
   public boolean update() {
@@ -54,7 +59,7 @@ class Cloud extends Sprite {
   }
 
   public void drawYourself(Graphics g) {
-    g.drawImage(this.cloud_image, this.x_pos, this.y_pos, null);
+    g.drawImage(Cloud.cloud_image, this.x_pos, this.y_pos, null);
   }
 
 }
