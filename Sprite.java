@@ -2,7 +2,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 abstract class Sprite {
-  //public static Image image1, image2;
   int x_pos, y_pos;
 
   // Return true if the object is of type "Tube"
@@ -28,24 +27,18 @@ abstract class Sprite {
   // Return true if already hit by Chuck (needed for Tubes)
   abstract boolean beenHit(double xVel);
 
+  // Produce a clone of the Sprite
   abstract Sprite copy();
 
-/*
-  public void setImages(Image im1, Image im2) {
-    image1 = im1;
-    image2 = im2;
-  }
-
-  public void setImage(Image im1) {
-    Sprite.image1 = im1;
-  }
-*/
-
+  // Set the position of the Sprite (Useless?)
+  // IDK, I'm keeping this because somethign tells me I'm not suppsoed
+  //to use the x_pos, y_Pos in this class, and not in the subclass
   public void setPos(int x, int y) {
     x_pos = x;
     y_pos = y;
   }
 
+  // Generic collision detection
   public static boolean collisionDetected(
     int a_x, int a_y, int a_w, int a_h, int b_x, int b_y, int b_w, int b_h) {
 
@@ -61,7 +54,5 @@ abstract class Sprite {
     System.out.println("HIT!");
     return true;
   }
-
-  //public static bounce(Sprite a, Sprite b) {
 
 }

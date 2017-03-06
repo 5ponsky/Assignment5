@@ -29,6 +29,9 @@ class Hand extends Sprite {
   // Not needed atm
   public boolean beenHit(double xVel) { return false; }
 
+  // Produce a clone of the Hand
+  Sprite copy() { return new Hand(this); }
+
   Hand(Bird b) {
     bird = b;
     gotcha = false;
@@ -49,17 +52,14 @@ class Hand extends Sprite {
     }
   }
 
+  // Copy constructor
   Hand(Sprite s) {
     this.gotcha = s.gotcha;
     this.speed = s.speed;
     this.x_pos = s.x_pos;
     this.y_pos = s.y_pos;
+    this.bird = s.bird;
 
-
-  }
-
-  Sprite clone() {
-    return new Sprite(this);
   }
 
   public boolean update() {

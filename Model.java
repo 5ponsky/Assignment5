@@ -12,20 +12,42 @@ class Model {
   Tube tube;
   LinkedList<Sprite> sprites;
 
+  // Produce a clone of the Bird
+  Model copy() { return new Model(this); }
+
+  // Default constructor
   Model() {
-  addTubeWhenZero = 45;
+    addTubeWhenZero = 45;
 
-  random = new Random(420);
-  bird = new Bird(this);
-  hand = new Hand(bird);
-  cloud = new Cloud(random);
-  tube = new Tube(random);
-  sprites = new LinkedList<Sprite>();
+    random = new Random(420);
+    bird = new Bird(this);
+    hand = new Hand(bird);
+    cloud = new Cloud(random);
+    tube = new Tube(random);
+    sprites = new LinkedList<Sprite>();
 
-  sprites.add(cloud);
-  sprites.add(bird);
-  sprites.add(hand);
-  sprites.add(tube);
+    sprites.add(cloud);
+    sprites.add(bird);
+    sprites.add(hand);
+    sprites.add(tube);
+  }
+
+  // Copy constructor
+  Model(Model m) {
+    this.addTubeWhenZero = m.addTubeWhenZero;
+    this.maximumTubes = m.maximumTubes;
+    this.bird = m.bird;
+    this.chuck = m.chuck;
+    this.cloud = m.cloud;
+    this.hand = m.hand;
+    this.random = m.random;
+    this.tube = m.tube;
+
+    Iterator<Sprite> it = m.sprites.iterator();
+    while(it.hasNext()) {
+      Sprite s = it.next();
+      this.sprites.add(s);
+    }
   }
 
   // Update the world model
@@ -59,6 +81,7 @@ class Model {
 
   }
 
+  // Evaulate the best choice based on highest energy level
   double evaluateAction(int action, int depth) {
 
     // Evaluate the state
@@ -83,13 +106,15 @@ class Model {
          copy.evaluateAction(ACTION_CHUCK, depth + 1));
        return best;
     }
-  
+
   }
 
+  // Allow the bird to flap if the LMB is clicked
   public void onClick() {
     bird.flap();
   }
 
+  // Summon the powers of Chuck Norris if RMB is clicked
   public void sendChuck() {
     chuck = new Chuck(this, random);
     sprites.add(chuck);

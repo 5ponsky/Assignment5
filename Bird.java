@@ -30,6 +30,10 @@ class Bird extends Sprite {
   // Not needed atm
   public boolean beenHit(double xVel) { return false; }
 
+  // Produce a clone of the Bird
+  Sprite copy() { return new Bird(this); }
+
+  // Default constructor
   Bird(Model m) {
     model = m;
     x_pos = 10;
@@ -51,20 +55,16 @@ class Bird extends Sprite {
     }
   }
 
+  // Copy constructor
   Bird(Sprite s) {
     this.flapped = s.flapped;
+    this.model = s.model;
     this.gravity = s.gravity;
     this.x_pos = s.x_pos;
     this.y_pos = s.y_pos;
     this.flapCounter = s.flapCounter;
     this.energy = s.energy;
     this.allowDamageWhenZero = s.allowDamageWhenZero;
-
-
-  }
-
-  Sprite copy() {
-    return new Bird(this);
   }
 
   // Update the bird

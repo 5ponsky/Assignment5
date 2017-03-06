@@ -26,6 +26,9 @@ class Cloud extends Sprite {
   // Not needed atm
   public boolean beenHit(double xVel) { return false; }
 
+  // Produce a clone of the Cloud
+  Sprite copy() { return new Cloud(this); }
+
   Cloud(Random r) {
     random = r;
     x_pos = 575;
@@ -42,10 +45,11 @@ class Cloud extends Sprite {
     }
   }
 
+  // Copy constructor
   Cloud(Sprite s) {
     this.x_pos = s.x_pos;
     this.y_pos = s.y_pos;
-
+    this.random = s.random;
   }
 
   public boolean update() {

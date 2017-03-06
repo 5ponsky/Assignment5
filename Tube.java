@@ -29,6 +29,10 @@ class Tube extends Sprite {
   // Return true if we detect/want a collision
   public boolean collided(Sprite a, Sprite b) { return false; }
 
+  // Produce a clone of the Tube
+  Sprite copy() { return new Tube(this); }
+
+  // Default constructor
   Tube(Random r) {
     random = r;
     gravity = -4.5;
@@ -57,6 +61,7 @@ class Tube extends Sprite {
       y_pos = random.nextInt(TUBEBOUND) - 250;
   }
 
+  // Copy constructor
   Tube(Sprite s) {
     this.gravity = s.gravity;
     this.xVel = s.xVel;
@@ -65,10 +70,6 @@ class Tube extends Sprite {
     this.tubeUpwards = s.tubeUpwards;
     this.isKicked = s.isKicked;
     this.random = s.random;
-  }
-
-  Sprite copy() {
-    return new Tube(this);
   }
 
   public boolean update() {

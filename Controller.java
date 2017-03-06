@@ -32,8 +32,9 @@ class Controller implements ActionListener, MouseListener
 			model.onClick();
 	}
 
+	// Update the controller (used for simple AI)
 	void update() {
-		
+
 		// Evaluate each possible action
 		double score_nothing = model.evaluateAction(ACTION_NOTHING, 0);
 		double score_flap = model.evaluateAction(ACTION_FLAP, 0);
