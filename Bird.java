@@ -1,8 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Iterator;
 import javax.imageio.ImageIO;
 
@@ -27,11 +25,11 @@ class Bird extends Sprite {
   public int ImageW() { return bird_image_up.getWidth(null); }
   public int ImageH() { return bird_image_up.getHeight(null); }
 
-  // Not needed atm
+  // Not needed at the moment
   public boolean beenHit(double xVel) { return false; }
 
   // Produce a clone of the Bird
-  Sprite copy() { return new Bird(this); }
+  Bird copy() { return new Bird(this); }
 
   // Default constructor
   Bird(Model m) {
@@ -56,15 +54,15 @@ class Bird extends Sprite {
   }
 
   // Copy constructor
-  Bird(Sprite s) {
-    this.flapped = s.flapped;
-    this.model = s.model;
-    this.gravity = s.gravity;
-    this.x_pos = s.x_pos;
-    this.y_pos = s.y_pos;
-    this.flapCounter = s.flapCounter;
-    this.energy = s.energy;
-    this.allowDamageWhenZero = s.allowDamageWhenZero;
+  Bird(Bird b) {
+    this.flapped = b.flapped;
+    this.model = b.model;
+    this.gravity = b.gravity;
+    this.x_pos = b.x_pos;
+    this.y_pos = b.y_pos;
+    this.flapCounter = b.flapCounter;
+    this.energy = b.energy;
+    this.allowDamageWhenZero = b.allowDamageWhenZero;
   }
 
   // Update the bird

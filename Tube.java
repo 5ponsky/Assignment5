@@ -62,14 +62,14 @@ class Tube extends Sprite {
   }
 
   // Copy constructor
-  Tube(Sprite s) {
-    this.gravity = s.gravity;
-    this.xVel = s.xVel;
-    this.x_pos = s.x_pos;
-    this.y_pos = s.y_pos;
-    this.tubeUpwards = s.tubeUpwards;
-    this.isKicked = s.isKicked;
-    this.random = s.random;
+  Tube(Tube t) {
+    this.gravity = t.gravity;
+    this.xVel = t.xVel;
+    this.x_pos = t.x_pos;
+    this.y_pos = t.y_pos;
+    this.tubeUpwards = t.tubeUpwards;
+    this.isKicked = t.isKicked;
+    this.random = t.random;
   }
 
   public boolean update() {

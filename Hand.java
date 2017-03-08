@@ -53,12 +53,12 @@ class Hand extends Sprite {
   }
 
   // Copy constructor
-  Hand(Sprite s) {
-    this.gotcha = s.gotcha;
-    this.speed = s.speed;
-    this.x_pos = s.x_pos;
-    this.y_pos = s.y_pos;
-    this.bird = s.bird;
+  Hand(Hand h) {
+    this.gotcha = h.gotcha;
+    this.speed = h.speed;
+    this.x_pos = h.x_pos;
+    this.y_pos = h.y_pos;
+    this.bird = h.bird;
 
   }
 

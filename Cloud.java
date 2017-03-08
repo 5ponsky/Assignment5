@@ -1,6 +1,5 @@
 import java.awt.Image;
 import javax.imageio.ImageIO;
-import java.io.IOException;
 import java.awt.Graphics;
 import java.io.File;
 
@@ -27,7 +26,7 @@ class Cloud extends Sprite {
   public boolean beenHit(double xVel) { return false; }
 
   // Produce a clone of the Cloud
-  Sprite copy() { return new Cloud(this); }
+  Cloud copy() { return new Cloud(this); }
 
   Cloud(Random r) {
     random = r;
@@ -46,10 +45,10 @@ class Cloud extends Sprite {
   }
 
   // Copy constructor
-  Cloud(Sprite s) {
-    this.x_pos = s.x_pos;
-    this.y_pos = s.y_pos;
-    this.random = s.random;
+  Cloud(Cloud c) {
+    this.x_pos = c.x_pos;
+    this.y_pos = c.y_pos;
+    this.random = c.random;
   }
 
   public boolean update() {

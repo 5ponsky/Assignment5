@@ -1,10 +1,9 @@
 import javax.swing.JFrame;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.Timer;
 
+@SuppressWarnings("serial")
 public class Game extends JFrame
 {
+	Controller controller;
 	Model model;
 	View view;
 	int frameCounter;
@@ -12,7 +11,7 @@ public class Game extends JFrame
 	public Game()
 	{
 		model = new Model();
-		Controller controller = new Controller(model);
+		controller = new Controller(model);
 		view = new View(controller, model);
 		this.setSize(500, 500);
 		this.getContentPane().add(view);
@@ -22,6 +21,7 @@ public class Game extends JFrame
 
 	public void run() {
 		while(true) {
+			controller.update();
 			model.update();
 			view.repaint(); // Implicitly calls View.paintComponent
 
@@ -33,7 +33,7 @@ public class Game extends JFrame
 				System.exit(1);
 			}
 
-			System.out.println("running...");
+			//System.out.println("Frame" + frameCounter++);
 		}
 	}
 

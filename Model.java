@@ -1,8 +1,12 @@
 import java.util.LinkedList;
 import java.util.Iterator;
+//import java.Controller.Action;
 
 class Model {
+
   int addTubeWhenZero, maximumTubes;
+  int d = 5; // How many steps to look ahead
+  int k = 5; // Frame interval in which we calculate a decision
 
   Bird bird;
   Chuck chuck;
@@ -36,17 +40,17 @@ class Model {
   Model(Model m) {
     this.addTubeWhenZero = m.addTubeWhenZero;
     this.maximumTubes = m.maximumTubes;
-    this.bird = m.bird;
-    this.chuck = m.chuck;
-    this.cloud = m.cloud;
-    this.hand = m.hand;
+    this.bird = new Bird(m.bird);
+    //this.chuck = m.chuck;
+    //this.cloud = new Cloud(m.cloud);
+    this.hand = new Hand(m.hand);
     this.random = m.random;
     this.tube = m.tube;
 
     Iterator<Sprite> it = m.sprites.iterator();
     while(it.hasNext()) {
       Sprite s = it.next();
-      this.sprites.add(s);
+      this.sprites.add(s.copy());
     }
   }
 
@@ -75,14 +79,15 @@ class Model {
     --addTubeWhenZero;
 
     if(bird.y_pos > 575) {
+      bird.energy = 0;
       System.out.println("GAME OVER!");
       System.exit(0);
     }
 
   }
 
-  // Evaulate the best choice based on highest energy level
-  double evaluateAction(int action, int depth) {
+  // Evaluate the best choice based on highest energy level
+  double evaluateAction(Action action, int depth) {
 
     // Evaluate the state
     if(bird.energy <= 0.0)
@@ -97,16 +102,29 @@ class Model {
 
     // Recurse
     if(depth % k != 0)
-       return copy.evaluateAction(ACTION_NOTHING, depth + 1);
+       return copy.evaluateAction(Action.ACTION_NOTHING, depth + 1);
     else {
-       double best = copy.evaluateAction(ACTION_NOTHING, depth + 1);
+       double best = copy.evaluateAction(Action.ACTION_NOTHING, depth + 1);
        best = Math.max(best,
-         copy.evaluateAction(ACTION_FLAP, depth + 1));
+         copy.evaluateAction(Action.ACTION_FLAP, depth + 1));
        best = Math.max(best,
-         copy.evaluateAction(ACTION_CHUCK, depth + 1));
+         copy.evaluateAction(Action.ACTION_CHUCK, depth + 1));
        return best;
     }
 
+  }
+
+  // Fires off the received action to the model
+  void doAction(Action action) {
+    if(action == Action.ACTION_FLAP) {
+      onClick();
+    } else if(action == Action.ACTION_CHUCK) {
+      sendChuck();
+    } else if(action == Action.ACTION_NOTHING) {
+      System.out.println("HERE");
+    } else {
+      throw new RuntimeException("Unexcepted Action: " + action);
+    }
   }
 
   // Allow the bird to flap if the LMB is clicked

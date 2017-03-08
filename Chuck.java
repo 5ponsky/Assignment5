@@ -28,6 +28,9 @@ class Chuck extends Sprite {
   // Not needed atm
   public boolean beenHit(double xVel) { return false; }
 
+  // Produce a clone of the Tube
+  Sprite copy() { return new Chuck(this); }
+
   Chuck(Model m, Random r) {
     model = m;
     x_pos = -100;
@@ -48,11 +51,11 @@ class Chuck extends Sprite {
 
   }
 
-  Chuck(Sprite s) {
-    this.gravity = s.gravity;
-    this.xVel = s.xVel;
-    this.x_pos = s.x_pos;
-    this.y_pos = s.y_pos;
+  Chuck(Chuck c) {
+    this.gravity = c.gravity;
+    this.xVel = c.xVel;
+    this.x_pos = c.x_pos;
+    this.y_pos = c.y_pos;
   }
 
   public boolean update() {
