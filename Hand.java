@@ -1,6 +1,5 @@
 import java.awt.Image;
 import javax.imageio.ImageIO;
-import java.io.IOException;
 import java.awt.Graphics;
 import java.io.File;
 
@@ -14,6 +13,9 @@ class Hand extends Sprite {
 
   // Return false because a "Hand" isn't a "Tube"
   public boolean isTube() { return false; }
+  
+  // Return true because a "Hand" is a "Bird"
+  public boolean isBird() { return false; }
 
   // Return x_pos or y_pos
   public int xPos() { return x_pos; }
@@ -30,7 +32,7 @@ class Hand extends Sprite {
   public boolean beenHit(double xVel) { return false; }
 
   // Produce a clone of the Hand
-  Sprite copy() { return new Hand(this); }
+  Hand copy() { return new Hand(this); }
 
   Hand(Bird b) {
     bird = b;
@@ -75,8 +77,20 @@ class Hand extends Sprite {
         gotcha = true;
         y_pos = y_pos + 3;
         bird.y_pos = y_pos;
+        
+        if(bird.y_pos > 575) {
+            bird.energy = 0;
+            System.out.println("GAME OVER!");
+            System.exit(0);
+          }
+        
       } else {
         y_pos = y_pos - 5;
+        if(bird.y_pos > 575) {
+        	y_pos = 757;
+            System.out.println("GAME OVER!");
+            System.exit(0);
+        }
       }
     }
   }

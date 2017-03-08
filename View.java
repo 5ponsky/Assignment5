@@ -1,13 +1,7 @@
 import javax.swing.JPanel;
 import java.awt.Graphics;
-import java.awt.Image;
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.awt.Graphics;
-import java.io.File;
 import javax.swing.JButton;
 import java.awt.Color;
-import java.util.LinkedList;
 import java.util.Iterator;
 
 @SuppressWarnings("serial")

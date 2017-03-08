@@ -16,6 +16,9 @@ class Bird extends Sprite {
 
   // Return false because a "Bird" isn't a "Tube"
   public boolean isTube() { return false; }
+  
+  // Return true because a "Bird" is a "Bird"
+  public boolean isBird() { return true; }
 
   // Return x_pos or y_pos
   public int xPos() { return x_pos; }
@@ -36,7 +39,6 @@ class Bird extends Sprite {
     model = m;
     x_pos = 10;
     y_pos = 250;
-    gravity = -6.5;
     energy = 100;
 
     setPos(x_pos, y_pos);

@@ -1,6 +1,5 @@
 import java.awt.Image;
 import javax.imageio.ImageIO;
-import java.io.IOException;
 import java.awt.Graphics;
 import java.io.File;
 
@@ -17,6 +16,9 @@ class Tube extends Sprite {
 
   // Return true because a "Tube" is a "Tube"
   public boolean isTube() { return true; }
+  
+  // Return true because a "Tube" is a "Bird"
+  public boolean isBird() { return false; }
 
   // Return x_pos or y_pos
   public int xPos() { return x_pos; }
@@ -30,7 +32,7 @@ class Tube extends Sprite {
   public boolean collided(Sprite a, Sprite b) { return false; }
 
   // Produce a clone of the Tube
-  Sprite copy() { return new Tube(this); }
+  Tube copy() { return new Tube(this); }
 
   // Default constructor
   Tube(Random r) {

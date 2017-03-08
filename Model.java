@@ -3,10 +3,10 @@ import java.util.Iterator;
 //import java.Controller.Action;
 
 class Model {
-
+  boolean isCopy;
   int addTubeWhenZero, maximumTubes;
-  int d = 5; // How many steps to look ahead
-  int k = 5; // Frame interval in which we calculate a decision
+  int d = 45; // How many steps to look ahead
+  int k = 8; // Frame interval in which we calculate a decision
 
   Bird bird;
   Chuck chuck;
@@ -21,6 +21,7 @@ class Model {
 
   // Default constructor
   Model() {
+    isCopy = false;
     addTubeWhenZero = 45;
 
     random = new Random(420);
@@ -38,24 +39,33 @@ class Model {
 
   // Copy constructor
   Model(Model m) {
+	isCopy = true;
+	this.sprites = new LinkedList<Sprite>();
     this.addTubeWhenZero = m.addTubeWhenZero;
     this.maximumTubes = m.maximumTubes;
-    this.bird = new Bird(m.bird);
+    this.random = new Random(420);
+    
+    //this.tube = new Tube(this.random);
+    this.bird = new Bird(this);
     //this.chuck = m.chuck;
-    //this.cloud = new Cloud(m.cloud);
+    this.cloud = new Cloud(m.cloud);
     this.hand = new Hand(m.hand);
-    this.random = m.random;
-    this.tube = m.tube;
+    //this.tube = m.tube;
 
     Iterator<Sprite> it = m.sprites.iterator();
     while(it.hasNext()) {
       Sprite s = it.next();
+      //System.out.println(s);
       this.sprites.add(s.copy());
+      //if(s.isBird())
+    	  //this.bird = (Bird)s;
     }
   }
 
   // Update the world model
   public void update() {
+	// Print stuff iff its the original
+	
 
     // Update each item in the list of world entities
     Iterator<Sprite> it = sprites.iterator();
@@ -63,7 +73,7 @@ class Model {
       Sprite s = it.next();
       if(s.update()) {
         it.remove();
-        System.out.println("SPRITE REMOVED");
+        //System.out.println("SPRITE REMOVED");
       }
 
     }
@@ -73,17 +83,13 @@ class Model {
     if(addTubeWhenZero <= 0 && maximumTubes < 4) {
       Tube t = new Tube(random);
       sprites.add(t);
-      addTubeWhenZero = 45;
-      System.out.println("ADDED A NEW TUBE");
+      addTubeWhenZero = 25;
+      //System.out.println("ADDED A NEW TUBE");
     }
     --addTubeWhenZero;
 
-    if(bird.y_pos > 575) {
-      bird.energy = 0;
-      System.out.println("GAME OVER!");
-      System.exit(0);
-    }
-
+    if(bird.y_pos > 575)
+        bird.energy = 0;
   }
 
   // Evaluate the best choice based on highest energy level
@@ -117,11 +123,12 @@ class Model {
   // Fires off the received action to the model
   void doAction(Action action) {
     if(action == Action.ACTION_FLAP) {
-      onClick();
+      this.onClick();
     } else if(action == Action.ACTION_CHUCK) {
-      sendChuck();
+    	if(!isCopy) { System.out.println("DOING STUFF"); }
+      this.sendChuck();
     } else if(action == Action.ACTION_NOTHING) {
-      System.out.println("HERE");
+      // Do Nothing
     } else {
       throw new RuntimeException("Unexcepted Action: " + action);
     }

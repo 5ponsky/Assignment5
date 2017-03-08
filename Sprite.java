@@ -1,11 +1,13 @@
 import java.awt.Graphics;
-import java.awt.Image;
 
 abstract class Sprite {
   int x_pos, y_pos;
 
   // Return true if the object is of type "Tube"
   abstract boolean isTube();
+  
+  // Return true if the boject is of type "Bird"
+  abstract boolean isBird();
 
   // Return x_pos or y_pos
   abstract int xPos();
@@ -51,7 +53,7 @@ abstract class Sprite {
     if(a_y > b_y + b_h) // top -> bottom collision
       return false;
 
-    System.out.println("HIT!");
+    //System.out.println("HIT!");
     return true;
   }
 

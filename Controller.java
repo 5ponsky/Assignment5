@@ -3,7 +3,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Robot;
-import java.lang.Exception;
 import javax.swing.SwingUtilities;
 
 
@@ -67,6 +66,8 @@ class Controller implements ActionListener, MouseListener
 			 if(score_nothing == 0.0)
 				 System.out.println("Found no way to survive!");
 		}
+		
+		System.out.println("score_nothing: " + score_nothing + "; score_flap: " + score_flap + "; score_chuck: " + score_chuck);
 	}
 
 	public void mouseReleased(MouseEvent e) { }

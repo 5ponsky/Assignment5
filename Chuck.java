@@ -1,9 +1,7 @@
 import java.awt.Image;
 import java.awt.Graphics;
-import java.io.IOException;
 import java.io.File;
 import java.util.Iterator;
-import java.util.LinkedList;
 import javax.imageio.ImageIO;
 
 class Chuck extends Sprite {
@@ -16,6 +14,9 @@ class Chuck extends Sprite {
 
   // Return false because a "Chuck" isn't a "Tube"
   public boolean isTube() { return false; }
+  
+  // Return true because a "Chuck" is a "Bird"
+  public boolean isBird() { return false; }
 
   // Return Image dimensions
   public int ImageW() { return chuck_image.getWidth(null); }
@@ -29,7 +30,7 @@ class Chuck extends Sprite {
   public boolean beenHit(double xVel) { return false; }
 
   // Produce a clone of the Tube
-  Sprite copy() { return new Chuck(this); }
+  Chuck copy() { return new Chuck(this); }
 
   Chuck(Model m, Random r) {
     model = m;
@@ -47,11 +48,12 @@ class Chuck extends Sprite {
       e.printStackTrace(System.err);
       System.exit(1);
     }
-  System.out.println("CHUCK ACTIVATED!");
+  //System.out.println("CHUCK ACTIVATED!");
 
   }
 
   Chuck(Chuck c) {
+	this.model = c.model;
     this.gravity = c.gravity;
     this.xVel = c.xVel;
     this.x_pos = c.x_pos;

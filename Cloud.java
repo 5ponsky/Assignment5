@@ -10,6 +10,9 @@ class Cloud extends Sprite {
 
   // Return false because a "Cloud" isn't a "Tube"
   public boolean isTube() { return false; }
+  
+  // Return true because a "Cloud" is a "Bird"
+  public boolean isBird() { return false; }
 
   // Return x_pos or y_pos
   public int xPos() { return x_pos; }
