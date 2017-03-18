@@ -5,8 +5,8 @@ import java.util.Iterator;
 class Model {
   boolean isCopy;
   int addTubeWhenZero, maximumTubes;
-  int d = 45; // How many steps to look ahead
-  int k = 8; // Frame interval in which we calculate a decision
+  int d = 35; // How many steps to look ahead
+  int k = 4; // Frame interval in which we calculate a decision
 
   Bird bird;
   Chuck chuck;
@@ -22,43 +22,71 @@ class Model {
   // Default constructor
   Model() {
     isCopy = false;
-    addTubeWhenZero = 45;
+    addTubeWhenZero = 25;
 
     random = new Random(420);
     bird = new Bird(this);
     hand = new Hand(bird);
     cloud = new Cloud(random);
-    tube = new Tube(random);
+    //tube = new Tube(random);
     sprites = new LinkedList<Sprite>();
 
     sprites.add(cloud);
     sprites.add(bird);
     sprites.add(hand);
-    sprites.add(tube);
+    //sprites.add(tube);
   }
 
   // Copy constructor
   Model(Model m) {
-	isCopy = true;
+	this.isCopy = true;
 	this.sprites = new LinkedList<Sprite>();
     this.addTubeWhenZero = m.addTubeWhenZero;
     this.maximumTubes = m.maximumTubes;
     this.random = new Random(420);
     
-    //this.tube = new Tube(this.random);
-    this.bird = new Bird(this);
-    //this.chuck = m.chuck;
-    this.cloud = new Cloud(m.cloud);
-    this.hand = new Hand(m.hand);
-    //this.tube = m.tube;
+    //this.cloud = new Cloud(m.cloud);
+    //this.bird = new Bird(m.bird);
+    //this.hand = new Hand(m.hand);
+    //this.tube = new Tube(m.random);
+    
+    //this.sprites.add(this.cloud);
+    //this.sprites.add(this.bird);
+    //this.sprites.add(this.hand);
+    //this.sprites.add(this.tube);
 
     Iterator<Sprite> it = m.sprites.iterator();
     while(it.hasNext()) {
       Sprite s = it.next();
-      //System.out.println(s);
-      this.sprites.add(s.copy());
-      //if(s.isBird())
-    	  //this.bird = (Bird)s;
+      
+      if(s.isTube()) {
+    	//this.sprites.add(new Tube((Tube) s, this.random));
+    	//this.tube = (Tube) s.copy();
+    	this.tube = new Tube((Tube) s, this.random);
+    	this.sprites.add(this.tube);
+      } else if(s.isCloud()) {
+      	//this.sprites.add(new Cloud((Cloud) s, this.random));
+      	//this.cloud = (Cloud) s.copy();
+    	this.cloud = new Cloud((Cloud) s, this.random);
+      	this.sprites.add(this.cloud);
+      } else if(s.isBird()){ 
+      	//this.sprites.add(new Bird((Bird) s, this));
+    	//this.bird = (Bird) s.copy();
+      	this.bird = new Bird((Bird) s, this);
+      	this.sprites.add(this.bird);
+      } else if(s.isHand()){
+      	//this.sprites.add(new Hand((Hand) s, this.bird));
+    	//this.hand = (Hand) s.copy();
+      	this.hand = new Hand((Hand) s, this.bird);
+      	this.sprites.add(this.hand);
+      } else if(s.isChuck()){
+    	//this.sprites.add(new Chuck((Chuck) s, this, this.random));
+    	//this.chuck = (Chuck) s.copy();
+      	this.chuck = new Chuck((Chuck) s, this, this.random);
+      	this.sprites.add(this.chuck);
+      }
+      
+      //this.sprites.add(s);
     }
   }
 
@@ -123,11 +151,13 @@ class Model {
   // Fires off the received action to the model
   void doAction(Action action) {
     if(action == Action.ACTION_FLAP) {
+    	//if(!isCopy) { System.out.println("DOING FLAP"); }
       this.onClick();
     } else if(action == Action.ACTION_CHUCK) {
-    	if(!isCopy) { System.out.println("DOING STUFF"); }
+    	//if(!isCopy) { System.out.println("DOING STUFF"); }
       this.sendChuck();
     } else if(action == Action.ACTION_NOTHING) {
+    	//if(!isCopy) { System.out.println("DOING NOTHING"); }
       // Do Nothing
     } else {
       throw new RuntimeException("Unexcepted Action: " + action);

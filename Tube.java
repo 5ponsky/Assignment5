@@ -19,6 +19,15 @@ class Tube extends Sprite {
   
   // Return true because a "Tube" is a "Bird"
   public boolean isBird() { return false; }
+  
+  //Return true because a "Chuck" is not a "Hand"
+  public boolean isHand() { return false; }
+  
+  //Return true because a "Chuck" is not a "Cloud"
+  public boolean isCloud() { return false; }
+  
+  // Return false because a "Tube" is not a "Chuck"
+  public boolean isChuck() { return false; }
 
   // Return x_pos or y_pos
   public int xPos() { return x_pos; }
@@ -32,7 +41,7 @@ class Tube extends Sprite {
   public boolean collided(Sprite a, Sprite b) { return false; }
 
   // Produce a clone of the Tube
-  Tube copy() { return new Tube(this); }
+  Tube copy() { return new Tube(this, this.random); }
 
   // Default constructor
   Tube(Random r) {
@@ -64,14 +73,14 @@ class Tube extends Sprite {
   }
 
   // Copy constructor
-  Tube(Tube t) {
+  Tube(Tube t, Random r) {
     this.gravity = t.gravity;
     this.xVel = t.xVel;
     this.x_pos = t.x_pos;
     this.y_pos = t.y_pos;
     this.tubeUpwards = t.tubeUpwards;
     this.isKicked = t.isKicked;
-    this.random = t.random;
+    this.random = r;
   }
 
   public boolean update() {

@@ -19,6 +19,15 @@ class Bird extends Sprite {
   
   // Return true because a "Bird" is a "Bird"
   public boolean isBird() { return true; }
+  
+  // Return true because a "Bird" is not a "Hand"
+  public boolean isHand() { return false; }
+  
+  // Return true because a "Bird" is not a "Cloud"
+  public boolean isCloud() { return false; }
+  
+  // Return false because a "Bird" is not a "Chuck"
+  public boolean isChuck() { return false; }
 
   // Return x_pos or y_pos
   public int xPos() { return x_pos; }
@@ -32,7 +41,7 @@ class Bird extends Sprite {
   public boolean beenHit(double xVel) { return false; }
 
   // Produce a clone of the Bird
-  Bird copy() { return new Bird(this); }
+  Bird copy() { return new Bird(this, this.model); }
 
   // Default constructor
   Bird(Model m) {
@@ -56,9 +65,9 @@ class Bird extends Sprite {
   }
 
   // Copy constructor
-  Bird(Bird b) {
+  Bird(Bird b, Model m) {
     this.flapped = b.flapped;
-    this.model = b.model;
+    this.model = m;
     this.gravity = b.gravity;
     this.x_pos = b.x_pos;
     this.y_pos = b.y_pos;
@@ -75,7 +84,7 @@ class Bird extends Sprite {
     if(energy > 0) {
       energy += 1;
 
-      gravity = gravity + 0.4;
+      gravity = gravity + 1.7;
       y_pos = y_pos + (int) gravity;
       --flapCounter;
 
@@ -96,6 +105,11 @@ class Bird extends Sprite {
         y_pos = 0;
         gravity = 0;
       }
+      
+      if(y_pos >= 500) {
+    	  energy = 0;
+    	  y_pos = 501;
+      }
 
     return false;
   }
@@ -103,8 +117,8 @@ class Bird extends Sprite {
   // Make the bird fly
   public void flap() {
     if(energy > 0) {
-      gravity = gravity - 4.5;
-      y_pos = y_pos - (int) gravity;
+      gravity = gravity - 13.5;
+      y_pos = y_pos + (int) gravity;
       flapCounter = 3;
     } else
       energy = 0;

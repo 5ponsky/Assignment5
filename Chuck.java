@@ -9,6 +9,7 @@ class Chuck extends Sprite {
   int x_pos, y_pos;
 
   Model model;
+  Random random;
 
   static Image chuck_image = null;
 
@@ -17,6 +18,15 @@ class Chuck extends Sprite {
   
   // Return true because a "Chuck" is a "Bird"
   public boolean isBird() { return false; }
+  
+  //Return true because a "Chuck" is not a "Hand"
+  public boolean isHand() { return false; }
+  
+  //Return true because a "Chuck" is not a "Cloud"
+  public boolean isCloud() { return false; }
+  
+  // Return true because a "Chuck" is a "Chuck"
+  public boolean isChuck() { return true; }
 
   // Return Image dimensions
   public int ImageW() { return chuck_image.getWidth(null); }
@@ -30,9 +40,10 @@ class Chuck extends Sprite {
   public boolean beenHit(double xVel) { return false; }
 
   // Produce a clone of the Tube
-  Chuck copy() { return new Chuck(this); }
+  Chuck copy() { return new Chuck(this, model, random); }
 
   Chuck(Model m, Random r) {
+	random = r;
     model = m;
     x_pos = -100;
     y_pos = (r.nextInt(175) + 250);
@@ -52,8 +63,9 @@ class Chuck extends Sprite {
 
   }
 
-  Chuck(Chuck c) {
-	this.model = c.model;
+  Chuck(Chuck c, Model m, Random r) {
+	this.random = r;
+	this.model = m;
     this.gravity = c.gravity;
     this.xVel = c.xVel;
     this.x_pos = c.x_pos;

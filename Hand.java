@@ -16,6 +16,15 @@ class Hand extends Sprite {
   
   // Return true because a "Hand" is a "Bird"
   public boolean isBird() { return false; }
+  
+  //Return true because a "Hand" is a "Hand"
+  public boolean isHand() { return true; }
+  
+  //Return false because a "Hand" is not a "Cloud"
+  public boolean isCloud() { return false; }
+  
+  // Return false because a "Hand" is not a "Chuck"
+  public boolean isChuck() { return false; }
 
   // Return x_pos or y_pos
   public int xPos() { return x_pos; }
@@ -32,7 +41,7 @@ class Hand extends Sprite {
   public boolean beenHit(double xVel) { return false; }
 
   // Produce a clone of the Hand
-  Hand copy() { return new Hand(this); }
+  Hand copy() { return new Hand(this, this.bird); }
 
   Hand(Bird b) {
     bird = b;
@@ -55,12 +64,12 @@ class Hand extends Sprite {
   }
 
   // Copy constructor
-  Hand(Hand h) {
+  Hand(Hand h, Bird b) {
     this.gotcha = h.gotcha;
     this.speed = h.speed;
     this.x_pos = h.x_pos;
     this.y_pos = h.y_pos;
-    this.bird = h.bird;
+    this.bird = b;
 
   }
 
@@ -77,20 +86,12 @@ class Hand extends Sprite {
         gotcha = true;
         y_pos = y_pos + 3;
         bird.y_pos = y_pos;
-        
-        if(bird.y_pos > 575) {
-            bird.energy = 0;
-            System.out.println("GAME OVER!");
-            System.exit(0);
-          }
-        
+        if(y_pos > 515) {
+        	System.out.println("Game Over");
+        	System.exit(0);
+        }
       } else {
         y_pos = y_pos - 5;
-        if(bird.y_pos > 575) {
-        	y_pos = 757;
-            System.out.println("GAME OVER!");
-            System.exit(0);
-        }
       }
     }
   }

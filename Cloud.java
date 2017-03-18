@@ -13,6 +13,15 @@ class Cloud extends Sprite {
   
   // Return true because a "Cloud" is a "Bird"
   public boolean isBird() { return false; }
+  
+  //Return false because a "Cloud" is not a "Hand"
+  public boolean isHand() { return false; }
+  
+  //Return true because a "Cloud" is a "Cloud"
+  public boolean isCloud() { return false; }
+  
+  // Return false because a "Cloud" is not a "Chuck"
+  public boolean isChuck() { return false; }
 
   // Return x_pos or y_pos
   public int xPos() { return x_pos; }
@@ -29,7 +38,7 @@ class Cloud extends Sprite {
   public boolean beenHit(double xVel) { return false; }
 
   // Produce a clone of the Cloud
-  Cloud copy() { return new Cloud(this); }
+  Cloud copy() { return new Cloud(this, this.random); }
 
   Cloud(Random r) {
     random = r;
@@ -48,10 +57,10 @@ class Cloud extends Sprite {
   }
 
   // Copy constructor
-  Cloud(Cloud c) {
+  Cloud(Cloud c, Random r) {
     this.x_pos = c.x_pos;
     this.y_pos = c.y_pos;
-    this.random = c.random;
+    this.random = r;
   }
 
   public boolean update() {

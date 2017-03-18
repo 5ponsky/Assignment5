@@ -6,8 +6,17 @@ abstract class Sprite {
   // Return true if the object is of type "Tube"
   abstract boolean isTube();
   
-  // Return true if the boject is of type "Bird"
+  // Return true if the object is of type "Bird"
   abstract boolean isBird();
+  
+  // Return true if the object is of type "Hand"
+  abstract boolean isHand();
+  
+  // Return true if the object is of type "Cloud"
+  abstract boolean isCloud();
+  
+  // Return true if the object is of type "Cloud"
+  abstract boolean isChuck();
 
   // Return x_pos or y_pos
   abstract int xPos();
